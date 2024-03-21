@@ -102,7 +102,7 @@
                                             <select class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="trangthai">
                                                 <?=$product['status'] == 0 ? '<option  value="1">Ẩn</option>
                                                 <option selected value="0" selected>Hiện</option>' : '<option selected value="1">Ẩn</option>
-                                                <option value="0" selected>Hiện</option>'?>
+                                                <option value="0" >Hiện</option>'?>
                                                 
                                             </select>
                                         </div>

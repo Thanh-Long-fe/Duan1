@@ -1,3 +1,31 @@
+<?php
+
+require "../global.php";
+require "../model/pdo.php";
+require "../model/size.php";
+require "../model/mau.php";
+require "../model/sanpham.php";
+require "../model/bienthe.php";
+require "../model/danhmuc.php";
+require "../model/thuonghieu.php";
+$size = get_size();
+$color = get_color();
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    $size = $_POST['size'];
+    $color = $_POST['color'];
+
+    $gia = $_POST['gia'];
+    $soluong = $_POST['soluong'];
+    $anh_sp = $_FILES['anh_sp'];
+    $status = $_POST['trangthai'];
+    $id_sp = $_POST['is_sp'];
+    $hinh_anh = uploadImage($anh_sp, '../upload/');
+
+    add_bien_the($id_sp, $size, $color, $gia, $hinh_anh, $soluong, $status);
+  }
+  header("location:../Admin/index.php");
+
+?>
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
@@ -30,7 +58,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <form class="form-horizontal" action="index.php?act=btn_update_bt" enctype="multipart/form-data" method="post">
+                    <form class="form-horizontal" action="" enctype="multipart/form-data" method="post">
                         <div class="card-body">
                             <h4 class="card-title">Thêm biến thể sản phẩm</h4>
                             <div class="form-group row">
@@ -39,7 +67,7 @@
                                     <select class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="size">
                                         <option value="">Chọn size</option>
                                         <?php foreach ($size as $s) : ?>
-                                            <option <?=$s['id_size'] == $bienthe['id_size'] ? 'selected' : ''?> value="<?= $s['id_size'] ?>"><?= $s['ten_size'] ?></option>
+                                            <option value="<?= $s['id_size'] ?>"><?= $s['ten_size'] ?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
@@ -50,7 +78,7 @@
                                     <select class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="color">
                                         <option value="">Chọn màu</option>
                                         <?php foreach ($color as $c) : ?>
-                                            <option <?=$c['id_mau'] == $bienthe['id_mau'] ? 'selected' : ''?> value="<?= $c['id_mau'] ?>"><?= $c['ten_mau'] ?></option>
+                                            <option value="<?= $c['id_mau'] ?>"><?= $c['ten_mau'] ?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
@@ -58,13 +86,13 @@
                             <div class="form-group row">
                                 <label for="Gia" class="col-sm-3 text-right control-label col-form-label">Giá</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="Gia" name="gia" placeholder="Giá " value="<?=$bienthe['gia']?>">
+                                    <input type="number" class="form-control" id="Gia" name="gia" placeholder="Giá ">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="soluong" class="col-sm-3 text-right control-label col-form-label">Số lượng</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="soluong" name="soluong" placeholder="Số lượng" value="<?=$bienthe['so_luong']?>">
+                                    <input type="number" class="form-control" id="soluong" name="soluong" placeholder="Số lượng">
                                 </div>
                             </div>
 
@@ -80,15 +108,13 @@
                                 <label class="col-sm-3 text-right control-label col-form-label">Trạng thái</label>
                                 <div class="col-md-9">
                                     <select class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="trangthai">
-                                        <?= $bienthe['status'] == 0 ? '<option value="1">Ẩn</option>
-                                        <option value="0"selected>Hiện</option>' : '<option selected value="1">Ẩn</option>
-                                        <option value="0">Hiện</option>'?>
+                                        <option value="1">Ẩn</option>
+                                        <option value="0"selected>Hiện</option>
 
                                     </select>
                                 </div>
                             </div>
-                            <input type="hidden" name="id_sp" value="<?=$bienthe['id_san_pham']?>">
-                            <input type="hidden" name="id_bt" value="<?=$bienthe['id_bien_the']?>">
+                            <input type="hidden" name="id_sp" value="10">
 
 
 

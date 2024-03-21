@@ -68,7 +68,7 @@
                                                 <td><img src="../upload/<?=$sp['hinh_anh']?>" alt="" height="50px"></td>
                                                 <td><?=$sp['status'] == 0 ? 'Hiện' : 'Ẩn'?></td>
                                                 <td><?=$sp['so_luot_xem']?>0</td>
-                                                <td><span><a href="index.php?act=list_bienthe&id=<?=$sp['id']?>" class="btn btn-primary btn-sm">Biến
+                                                <td><span><a href="index.php?act=list_bien_the&id=<?=$sp['id']?>" class="btn btn-primary btn-sm">Biến
                                                 thể</a></span><span><a href="index.php?act=update_sanpham&id=<?=$sp['id']?>"
                                                 class="btn btn-warning btn-sm">Sửa sản
                                                 phẩm</a></span><span><a href="index.php?act=delete_sp&id=<?=$sp['id']?>"

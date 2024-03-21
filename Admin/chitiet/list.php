@@ -35,25 +35,25 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex" style="justify-content: space-between;">
-                            <h5 class="card-title">Biến thể sản phẩm</h5><a href="index.php?act=add_bienthe&id=<?=$_GET['id']?>" class="btn btn-primary m-2">Thêm sản phẩm</a>
+                            <h5 class="card-title">Chi tiết đơn hàng</h5>
                         </div>
                         <div class="table-responsive">
                             <table id="zero_config" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Thuộc sản phẩm</th>
+                                        <th>Tên sản phẩm</th>
                                         <th>size</th>
                                         <th>color</th>
                                         <th>Giá</th>
-                                        <th>Hình ảnh</th>
+                                        
                                         <th>Số lượng</th>
-                                        <th>Trạng thái</th>
-                                        <th>Chức năng</th>
+                                        
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    <?php foreach ($bienthe as $bt) : ?>
+                                    <?php foreach ($chi_tiet as $bt) : ?>
 
 
                                         <tr>
@@ -63,25 +63,23 @@
                                             <td><?= $bt['gia'] ?></td>
 
 
-                                            <td><img src="../upload/<?= $bt['hinh_anh'] ?>" alt="" height="50"></td>
-                                            <td><?= $bt['so_luong'] ?></td>
-                                            <td><?= $bt['status'] == 0 ? 'Hiện' : 'Ẩn' ?></td>
-                                            <td><span><a href="index.php?act=update_bt&id=<?= $bt['id_bien_the'] ?>" class="btn btn-warning btn-sm">Sửa sản
-                                                        phẩm</a></span><span><a href="index.php?act=delete_bt&id=<?= $bt['id_bien_the'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Có muốn xóa sản phẩm này không ?')">Xóa sản phẩm</a></span></td>
+                                            
+                                            <td><?= $bt['soluong'] ?></td>
+                                            
                                         </tr>
                                     <?php endforeach ?>
 
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Thuộc sản phẩm</th>
+                                        <th> Sản phẩm</th>
                                         <th>size</th>
                                         <th>color</th>
                                         <th>Giá</th>
-                                        <th>Hình ảnh</th>
+                                        
                                         <th>Số lượng</th>
-                                        <th>Trạng thái</th>
-                                        <th>Chức năng</th>
+                                        
+                                        
                                     </tr>
                                 </tfoot>
                             </table>

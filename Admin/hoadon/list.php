@@ -35,53 +35,76 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex" style="justify-content: space-between;">
-                            <h5 class="card-title">Biến thể sản phẩm</h5><a href="index.php?act=add_bienthe&id=<?=$_GET['id']?>" class="btn btn-primary m-2">Thêm sản phẩm</a>
+                            <h5 class="card-title">Biến thể sản phẩm</h5>
                         </div>
                         <div class="table-responsive">
                             <table id="zero_config" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Thuộc sản phẩm</th>
-                                        <th>size</th>
-                                        <th>color</th>
-                                        <th>Giá</th>
-                                        <th>Hình ảnh</th>
-                                        <th>Số lượng</th>
+                                    <th>Mã đơn</th>
+                                        <th>Người dùng</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Ngày đặt</th>
+                                       
+                                        <th>Số điện thoại</th>
+                                        <th>Ghi chú</th>
+                                        <th>Thanh toán</th>
                                         <th>Trạng thái</th>
-                                        <th>Chức năng</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Cập nhật trạng thái</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                    <?php foreach ($bienthe as $bt) : ?>
+                                    <?php foreach ($hoadon as $bt) : ?>
 
 
-                                        <tr>
-                                            <td><?= $bt['ten_san_pham'] ?></td>
-                                            <td><?= $bt['ten_size'] ?></td>
-                                            <td><?= $bt['ten_mau'] ?></td>
-                                            <td><?= $bt['gia'] ?></td>
+                                        <tr><td><?= $bt['id_hoa_don'] ?></td>
+                                            <td><?= $bt['ho_ten'] ?></td>
+                                            <td><?= $bt['dia_chi'] ?></td>
+                                            <td><?= $bt['ngay_dat'] ?></td>
+                                            <td><?= $bt['sdt'] ?></td>
 
+                                            <td><?= $bt['ten_thanh_toan'] ?></td>
+                                            <td><?= $bt['ghi_chu'] ?></td>
+                                            <td><form action="index.php?act=update_dh" id="form_update" method="post">
+                                                <select name="trang_thai" class="tt">
+                                                <?php 
+                                                $tt = ['Đang chờ','Đang xử lý','Đang vận chuyển','Hủy đơn','Đã giao'];
+                                                foreach($tt as $a) :
+                                                    
+                                                ?>
+                                                <option <?=$a == $bt['trang_thai'] ? 'selected' :''?> <?=$a == 'Hủy đơn' || $a == 'Đã giao' ? 'disabled' : ''?> value="<?=$a?>"><?=$a?></option>
+                                                  
+                                                <?php
+                                                
+                                                 endforeach?>
+                                                
 
-                                            <td><img src="../upload/<?= $bt['hinh_anh'] ?>" alt="" height="50"></td>
-                                            <td><?= $bt['so_luong'] ?></td>
-                                            <td><?= $bt['status'] == 0 ? 'Hiện' : 'Ẩn' ?></td>
-                                            <td><span><a href="index.php?act=update_bt&id=<?= $bt['id_bien_the'] ?>" class="btn btn-warning btn-sm">Sửa sản
-                                                        phẩm</a></span><span><a href="index.php?act=delete_bt&id=<?= $bt['id_bien_the'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Có muốn xóa sản phẩm này không ?')">Xóa sản phẩm</a></span></td>
+                                                    
+                                                </select>
+                                                <input type="hidden" name="id_hd" value="<?=$bt['id_hoa_don']?>">
+                                            </form></td>
+                                            <td><?= $bt['tong_tien'] ?></td>
+                                            
+                                            <td><button form="form_update" class="btn btn-warning btn-sm">Cập nhật</button><a href="index.php?act=list_chitiet&id=<?= $bt['id_hoa_don'] ?>" class="btn btn-success btn-sm my-2">Chi tiết</a></td>
                                         </tr>
                                     <?php endforeach ?>
 
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <th>Thuộc sản phẩm</th>
-                                        <th>size</th>
-                                        <th>color</th>
-                                        <th>Giá</th>
-                                        <th>Hình ảnh</th>
-                                        <th>Số lượng</th>
+                                        <th>Mã đơn</th>
+                                        <th>Người dùng</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Ngày đặt</th>
+                                       
+                                        <th>Số điện thoại</th>
+                                        <th>Ghi chú</th>
+                                        <th>Thanh toán</th>
                                         <th>Trạng thái</th>
-                                        <th>Chức năng</th>
+                                        <th>Tổng tiền</th>
+                                        <th>Cập nhật trạng thái</th>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -115,3 +138,15 @@
     <!-- End footer -->
     <!-- ============================================================== -->
 </div>
+<script>
+    var select = document.querySelectorAll('.tt');
+    select.forEach(function(vl,key){
+        if (vl.value == 'Đã giao' || vl.value == 'Hủy đơn') {
+            
+        vl.disabled = true;
+    }
+        else{
+        vl.disabled = false;
+        }
+    })
+</script>
