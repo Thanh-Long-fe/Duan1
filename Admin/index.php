@@ -82,7 +82,16 @@ if (isset($_GET['act'])) {
             $product = get_all();
             require "sanpham/list.php";
             break;
-        case 'list_bien_the':
+            case 'view_sp':
+                $id = $_GET['id'];
+                view_sp($id);
+                echo "<script>setTimeout(function(){
+                    alert('Hiện thành công !!!')
+                },800)</script>";
+                $product = get_all();
+                require "sanpham/list.php";
+                break;
+                case 'list_bien_the':
             $id = $_GET['id'];
             $bienthe = get_bt_from_san_pham($id);
             require 'bienthe/list.php';

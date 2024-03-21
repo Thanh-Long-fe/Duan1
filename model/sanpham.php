@@ -61,38 +61,18 @@ pdo_execute($sql_hide_sanpham, $id_san_pham);
 return true;
 } 
 
+function view_sp($id_san_pham){
 
 
-function delete_sp($id_san_pham) {
-    // Bước 1: Xóa các bình luận liên quan đến sản phẩm
-    $sql_delete_binhluan = "DELETE FROM binhluan WHERE id_san_pham = ?";
-    pdo_execute($sql_delete_binhluan, $id_san_pham);
 
-    // Bước 2: Xóa các giỏ hàng chứa biến thể của sản phẩm
-    $sql_delete_cart = "DELETE FROM giohang WHERE id_bien_the IN (SELECT id_bien_the FROM bienthe WHERE id_san_pham = ?)";
-    pdo_execute($sql_delete_cart, $id_san_pham);
+$sql_hide_sanpham = "UPDATE sanpham SET `status` = 0 WHERE id = ?";
+  return pdo_execute($sql_hide_sanpham, $id_san_pham);
 
-    // Bước 3: Xóa các chi tiết hóa đơn liên quan đến biến thể của sản phẩm
-    $sql_delete_cthd = "DELETE FROM chi_tiet_hoa_don WHERE id_bien_the IN (SELECT id_bien_the FROM bienthe WHERE id_san_pham = ?)";
-    pdo_execute($sql_delete_cthd, $id_san_pham);
 
-    // Bước 4: Xóa các hóa đơn liên quan đến sản phẩm
-    $sql_select_hd = "SELECT DISTINCT id_hoa_don FROM chi_tiet_hoa_don WHERE id_bien_the IN (SELECT id_bien_the FROM bienthe WHERE id_san_pham = ?)";
-    $list_hd = pdo_query($sql_select_hd, $id_san_pham);
-    foreach ($list_hd as $hd) {
-        $id_hoa_don = $hd['id_hoa_don'];
-        $sql_delete_hd = "DELETE FROM hoadon WHERE id_hoa_don = ?";
-        pdo_execute($sql_delete_hd, $id_hoa_don);
-    }
 
-    // Bước 5: Xóa các biến thể liên quan đến sản phẩm
-    $sql_delete_bienthe = "DELETE FROM bienthe WHERE id_san_pham = ?";
-    pdo_execute($sql_delete_bienthe, $id_san_pham);
+} 
 
-    // Bước 6: Xóa sản phẩm từ bảng sản phẩm
-    $sql_delete_sanpham = "DELETE FROM sanpham WHERE id = ?";
-    pdo_execute($sql_delete_sanpham, $id_san_pham);
-}
+
 
 
 

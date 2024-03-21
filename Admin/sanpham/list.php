@@ -71,8 +71,8 @@
                                                 <td><span><a href="index.php?act=list_bien_the&id=<?=$sp['id']?>" class="btn btn-primary btn-sm">Biến
                                                 thể</a></span><span><a href="index.php?act=update_sanpham&id=<?=$sp['id']?>"
                                                 class="btn btn-warning btn-sm">Sửa sản
-                                                phẩm</a></span><span><a href="index.php?act=delete_sp&id=<?=$sp['id']?>"
-                                                class="btn btn-danger btn-sm" onclick="return confirm('Có muốn xóa sản phẩm này không ?')">Xóa sản phẩm</a></span></td>
+                                                phẩm</a></span><span><a href="index.php?act=<?= $sp['status'] == 0 ? 'delete_sp':'view_sp'?>&id=<?=$sp['id']?>"
+                                                class="btn btn-danger btn-sm" onclick="return confirm('<?= $sp['status'] == 0 ? 'Có muốn ẩn không ??':'Có muốn hiện không ?'?>')"><?= $sp['status'] == 0 ? 'Ẩn sản phẩm':'Hiện sản phẩm'?></a></span></td>
                                             </tr>
                                     <?php endforeach?>    
 
