@@ -9,8 +9,8 @@
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Size</li>
                         </ol>
                     </nav>
                 </div>
@@ -36,35 +36,39 @@
                             <div class="form-group row">
                                 <label for="size" class="col-sm-3 text-right control-label col-form-label">Size</label>
                                 <div class="col-sm-9">
-                                    <select class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="size">
+                                    <select rules="required" class="select form-control m-t-15" style="height: 36px;width: 100%;" name="size">
                                         <option value="">Chọn size</option>
                                         <?php foreach ($size as $s) : ?>
                                             <option value="<?= $s['id_size'] ?>"><?= $s['ten_size'] ?></option>
                                         <?php endforeach ?>
                                     </select>
+                                    <span class="form-message"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="size" class="col-sm-3 text-right control-label col-form-label">Màu</label>
                                 <div class="col-sm-9">
-                                    <select class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="color">
+                                    <select rules="required" class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="color">
                                         <option value="">Chọn màu</option>
                                         <?php foreach ($color as $c) : ?>
                                             <option value="<?= $c['id_mau'] ?>"><?= $c['ten_mau'] ?></option>
                                         <?php endforeach ?>
                                     </select>
+                                    <span class="form-message"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="Gia" class="col-sm-3 text-right control-label col-form-label">Giá</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="Gia" name="gia" placeholder="Giá ">
+                                    <input rules="required" type="number" class="form-control" id="Gia" name="gia" placeholder="Giá ">
+                                    <span class="form-message"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="soluong" class="col-sm-3 text-right control-label col-form-label">Số lượng</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="soluong" name="soluong" placeholder="Số lượng">
+                                    <input rules="required" type="number" class="form-control" id="soluong" name="soluong" placeholder="Số lượng">
+                                    <span class="form-message"></span>
                                 </div>
                             </div>
 
@@ -73,7 +77,8 @@
                             <div class="form-group row">
                                 <label for="anh_sp" class="col-sm-3 text-right control-label col-form-label">Ảnh sản phẩm</label>
                                 <div class="col-sm-9">
-                                    <input type="file" class="form-control" id="anh_sp" name="anh_sp">
+                                    <input rules="required" type="file" class="form-control" id="anh_sp" name="anh_sp">
+                                    <span class="form-message"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -86,7 +91,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <input type="hidden" name="id_sp" value="<?=$_GET['id']?>">
+                            <input rules="required" type="hidden" name="id_sp" value="<?=$_GET['id']?>">
 
 
 

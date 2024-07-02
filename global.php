@@ -1,7 +1,7 @@
 <?php
-session_start();
+
 function is_admin_logged_in() {
-    return isset($_SESSION['user']) && $_SESSION['user']['chucVu'] === 1;
+    return isset($_SESSION['user']) && $_SESSION['user']['quyen'] === 1;
 }
 function exist_param($fieldname){
     return array_key_exists($fieldname,$_REQUEST);
@@ -64,3 +64,47 @@ function uploadImage($file, $uploadPath) {
 
     return $newFileName; // Trả về tên file mới để lưu vào cơ sở dữ liệu hoặc thực hiện các xử lý khác
 }
+function shorten_number($number) {
+    if ($number >= 1000000) {
+        return round($number / 1000000, 1) . 'M';
+    } elseif ($number >= 10000) {
+        return round($number / 1000, 1) . 'K';
+    } else {
+        return $number;
+    }
+}
+
+function random_pass($length = 6) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, strlen($characters) - 1)];
+    }
+    return $randomString;
+}
+function kiem_tra_tu_khoa_cam($comment) {
+    // Danh sách từ khóa cấm
+    $tu_khoa_cam = array("cặc", "lồn", "boài", "cứt","địt","Địt","cc","qq","dit","cak","lon","chó","fuck","bicth");
+
+    // Chuyển đổi bình luận thành chữ thường để đảm bảo tính nhạy cảm
+    $comment_lower = strtolower($comment);
+
+    // Kiểm tra xem từ khóa cấm có xuất hiện trong bình luận hay không
+    foreach ($tu_khoa_cam as $tu_khoa) {
+        if (strpos($comment_lower, $tu_khoa) !== false) {
+            return 1; // Tồn tại từ khóa cấm trong bình luận
+        }
+    }
+
+    return 0; // Không có từ khóa cấm nào trong bình luận
+}
+
+function generate_id($user_id) {
+    // Lấy giờ, phút, giây, ngày, tháng, năm hiện tại
+    $current_time = date("HisdmY");
+    // Kết hợp chuỗi ID với mã người dùng và thời gian hiện tại
+    $id = "DH_" . $user_id . "_" . $current_time;
+    return $id;
+}
+
+// Sử dụng hàm để tạo ID

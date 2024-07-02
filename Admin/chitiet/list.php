@@ -45,6 +45,7 @@
                                         <th>size</th>
                                         <th>color</th>
                                         <th>Giá</th>
+                                        <th>Giá khi mua</th>
                                         
                                         <th>Số lượng</th>
                                         
@@ -60,7 +61,8 @@
                                             <td><?= $bt['ten_san_pham'] ?></td>
                                             <td><?= $bt['ten_size'] ?></td>
                                             <td><?= $bt['ten_mau'] ?></td>
-                                            <td><?= $bt['gia'] ?></td>
+                                            <td><?= number_format( $bt['gia'] ,0,'.','.') ?></td>
+                                            <td><?= number_format($bt['gia_khi_mua'],0,'.','.') ?></td>
 
 
                                             

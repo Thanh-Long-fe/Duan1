@@ -36,35 +36,40 @@
                             <div class="form-group row">
                                 <label for="size" class="col-sm-3 text-right control-label col-form-label">Size</label>
                                 <div class="col-sm-9">
-                                    <select class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="size">
+                                    <select rules="required" class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="size">
                                         <option value="">Chọn size</option>
                                         <?php foreach ($size as $s) : ?>
                                             <option <?=$s['id_size'] == $bienthe['id_size'] ? 'selected' : ''?> value="<?= $s['id_size'] ?>"><?= $s['ten_size'] ?></option>
                                         <?php endforeach ?>
                                     </select>
+                                    <span class="form-message"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="size" class="col-sm-3 text-right control-label col-form-label">Màu</label>
                                 <div class="col-sm-9">
-                                    <select class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="color">
+                                    <select rules="required" class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="color">
                                         <option value="">Chọn màu</option>
                                         <?php foreach ($color as $c) : ?>
                                             <option <?=$c['id_mau'] == $bienthe['id_mau'] ? 'selected' : ''?> value="<?= $c['id_mau'] ?>"><?= $c['ten_mau'] ?></option>
                                         <?php endforeach ?>
                                     </select>
+                                    <span class="form-message"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="Gia" class="col-sm-3 text-right control-label col-form-label">Giá</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="Gia" name="gia" placeholder="Giá " value="<?=$bienthe['gia']?>">
+                                    <input rules="required" type="number" class="form-control" id="Gia" name="gia" placeholder="Giá " value="<?=$bienthe['gia']?>">
+                                    <span class="form-message"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="soluong" class="col-sm-3 text-right control-label col-form-label">Số lượng</label>
+                                
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" id="soluong" name="soluong" placeholder="Số lượng" value="<?=$bienthe['so_luong']?>">
+                                    <input rules="required" type="number" class="form-control" id="soluong" name="soluong" placeholder="Số lượng" value="<?=$bienthe['so_luong']?>">
+                                    <span class="form-message"></span>
                                 </div>
                             </div>
 
@@ -74,6 +79,7 @@
                                 <label for="anh_sp" class="col-sm-3 text-right control-label col-form-label">Ảnh sản phẩm</label>
                                 <div class="col-sm-9">
                                     <input type="file" class="form-control" id="anh_sp" name="anh_sp">
+                                    <span class="form-message"></span>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -85,10 +91,11 @@
                                         <option value="0">Hiện</option>'?>
 
                                     </select>
+                                    <span class="form-message"></span>
                                 </div>
                             </div>
-                            <input type="hidden" name="id_sp" value="<?=$bienthe['id_san_pham']?>">
-                            <input type="hidden" name="id_bt" value="<?=$bienthe['id_bien_the']?>">
+                            <input rules="required" type="hidden" name="id_sp" value="<?=$bienthe['id_san_pham']?>">
+                            <input rules="required" type="hidden" name="id_bt" value="<?=$bienthe['id_bien_the']?>">
 
 
 

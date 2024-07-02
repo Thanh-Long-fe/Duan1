@@ -17,18 +17,37 @@ try{
     echo"Loi ket noi csdl:" .$e->getMessage();
 }
 }
+
 /**
  * Thực thi câu lệnh sql thao tác dữ liệu (INSERT, UPDATE, DELETE)
  * @param string $sql câu lệnh sql
  * @param array $args mảng giá trị cung cấp cho các tham số của $sql
  * @throws PDOException lỗi thực thi câu lệnh
  */
+
+ function pdo_execute_has_id($sql){
+    $sql_args = array_slice(func_get_args(), 1);
+    try{
+        $conn = pdo_get_connection();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($sql_args);
+        $last_id = $conn->lastInsertId();
+        return $last_id;
+    }
+    catch(PDOException $e){
+        throw $e;
+    }
+    finally{
+        unset($conn);
+    }
+}
 function pdo_execute($sql){
     $sql_args = array_slice(func_get_args(), 1);
     try{
         $conn = pdo_get_connection();
         $stmt = $conn->prepare($sql);
         $stmt->execute($sql_args);
+        
     }
     catch(PDOException $e){
         throw $e;

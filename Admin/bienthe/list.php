@@ -35,7 +35,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex" style="justify-content: space-between;">
-                            <h5 class="card-title">Biến thể sản phẩm</h5><a href="index.php?act=add_bienthe&id=<?=$_GET['id']?>" class="btn btn-primary m-2">Thêm sản phẩm</a>
+                            <h5 class="card-title">Biến thể sản phẩm</h5><a href="index.php?act=add_bienthe&id=<?=$_GET['id']?>" class="btn btn-primary m-2">Thêm biến thể</a>
                         </div>
                         <div class="table-responsive">
                             <table id="zero_config" class="table table-striped table-bordered">
@@ -67,7 +67,7 @@
                                             <td><?= $bt['so_luong'] ?></td>
                                             <td><?= $bt['status'] == 0 ? 'Hiện' : 'Ẩn' ?></td>
                                             <td><span><a href="index.php?act=update_bt&id=<?= $bt['id_bien_the'] ?>" class="btn btn-warning btn-sm">Sửa sản
-                                                        phẩm</a></span><span><a href="index.php?act=delete_bt&id=<?= $bt['id_bien_the'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Có muốn xóa sản phẩm này không ?')">Xóa sản phẩm</a></span></td>
+                                                        phẩm</a></span><span><a href="index.php?act=<?=$bt['status'] == 0 ? 'delete_bt' : 'view_bt' ?>&id_bt=<?= $bt['id_bien_the'] ?>&id=<?=$_GET['id']?>" class="btn btn-danger btn-sm" onclick="return confirm('<?=$bt['status'] == 0 ? 'Có muốn xóa sản phẩm này không ?' : 'Có muốn hiện sản phẩm này không ?'?>')"><?=$bt['status'] == 0 ? 'Ẩn biến thể' : 'Hiện biến thể' ?></a></span></td>
                                         </tr>
                                     <?php endforeach ?>
 

@@ -1,7 +1,10 @@
 <?php
+
+
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
+
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -19,7 +22,9 @@ header("Pragma: no-cache");
     <!-- Custom CSS -->
     <link href="assets/libs/flot/css/float-chart.css" rel="stylesheet">
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" type="text/css" href="assets/extra-libs/multicheck/multicheck.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <link href="assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -27,8 +32,116 @@ header("Pragma: no-cache");
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    
 <![endif]-->
 </head>
+<style>
+    .color input{
+        border-color: red !important;
+    }
+    .color select{
+        border-color: red !important;
+    }
+    .color textarea{
+        border-color: red !important;
+    }
+    .color .form-message{
+    color: red !important;
+    }
+    .toast_ {
+    min-width: 400px;
+    max-width: 450px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 20px;
+    border-left: 4px solid;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
+    animation: trans ease 0.3s, out linear 1s 3s forwards; 
+    
+  }
+@keyframes trans{
+  from {
+    opacity: 0;
+    transform: translateX(calc(100% + 32px));
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes out{
+  to{
+    display: none;
+    opacity: 0;
+  }
+}
+
+    .toast__icon {
+    font-size: 24px;
+    padding-right: 16px;
+  }
+  .toast_ + .toast_{
+    margin-top: 24px;
+  }
+
+  .toast__body {
+    flex-grow: 1; /* Phần này sẽ mở rộng để lấp đầy không gian còn trống */
+  }
+
+  .toast__title {
+    margin-top: 0; /* Xóa margin top mặc định */
+    margin-bottom: 8px; /* Tạo khoảng cách giữa tiêu đề và nội dung */
+    font-size: 16px;
+    font-weight: 800;
+    color: black;
+  }
+
+  .toast__msg {
+    margin-top: 0; /* Xóa margin top mặc định */
+    margin-bottom: 0; /* Xóa margin bottom mặc định */
+    font-size: 14px;
+    color: #888;
+    line-height: 1.5;
+  }
+
+  .toast__close {
+    font-size: 20px;
+    padding-left: 16px;
+    color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+.toast--success{
+border-color: #47d864;
+}
+.toast--success .toast__icon{
+  color: #47d864;
+}
+.toast--error{
+  border-color: #ff623d;
+}
+.toast--error .toast__icon{
+  color: #ff623d;
+}
+
+.toast--warning{
+  border-color: #f08048;
+}
+.toast--warning .toast__icon{
+  color: #f08048;
+}
+#toast_{
+position: fixed;
+top: 132px;
+right: 32px;
+z-index: 1000;
+}
+    
+    
+    
+</style>
 
 <body>
     <!-- ============================================================== -->
@@ -40,6 +153,7 @@ header("Pragma: no-cache");
             <div class="lds-pos"></div>
         </div>
     </div>
+    <div id="toast_"></div>
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
@@ -55,27 +169,27 @@ header("Pragma: no-cache");
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="../view/index.php">
                         <!-- Logo icon -->
                         <b class="logo-icon p-l-10">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
                             <img src="assets/images/logo-icon.png" alt="homepage" class="light-logo" />
-                           
+
                         </b>
                         <!--End Logo icon -->
-                         <!-- Logo text -->
+                        <!-- Logo text -->
                         <span class="logo-text">
-                             <!-- dark Logo text -->
-                             <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" />
-                            
+                            <!-- dark Logo text -->
+                            <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" />
+
                         </span>
                         <!-- Logo icon -->
                         <!-- <b class="logo-icon"> -->
-                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            <!-- Dark Logo icon -->
-                            <!-- <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
-                            
+                        <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                        <!-- Dark Logo icon -->
+                        <!-- <img src="assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+
                         <!-- </b> -->
                         <!--End Logo icon -->
                     </a>
@@ -90,137 +204,7 @@ header("Pragma: no-cache");
                 <!-- ============================================================== -->
                 <!-- End Logo -->
                 <!-- ============================================================== -->
-                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5">
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav float-left mr-auto">
-                        <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
-                        <!-- ============================================================== -->
-                        <!-- create new -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                             <span class="d-none d-md-block">Create New <i class="fa fa-angle-down"></i></span>
-                             <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item search-box"> <a class="nav-link waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
-                            <form class="app-search position-absolute">
-                                <input type="text" class="form-control" placeholder="Search &amp; enter"> <a class="srh-btn"><i class="ti-close"></i></a>
-                            </form>
-                        </li>
-                    </ul>
-                    <!-- ============================================================== -->
-                    <!-- Right side toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav float-right">
-                        <!-- ============================================================== -->
-                        <!-- Comment -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-bell font-24"></i>
-                            </a>
-                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- End Comment -->
-                        <!-- ============================================================== -->
-                        <!-- ============================================================== -->
-                        <!-- Messages -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="font-24 mdi mdi-comment-processing"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" aria-labelledby="2">
-                                <ul class="list-style-none">
-                                    <li>
-                                        <div class="">
-                                             <!-- Message -->
-                                            <a href="javascript:void(0)" class="link border-top">
-                                                <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
-                                                    <div class="m-l-10">
-                                                        <h5 class="m-b-0">Event today</h5> 
-                                                        <span class="mail-desc">Just a reminder that event</span> 
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)" class="link border-top">
-                                                <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-info btn-circle"><i class="ti-settings"></i></span>
-                                                    <div class="m-l-10">
-                                                        <h5 class="m-b-0">Settings</h5> 
-                                                        <span class="mail-desc">You can customize this template</span> 
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)" class="link border-top">
-                                                <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-primary btn-circle"><i class="ti-user"></i></span>
-                                                    <div class="m-l-10">
-                                                        <h5 class="m-b-0">Pavan kumar</h5> 
-                                                        <span class="mail-desc">Just see the my admin!</span> 
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)" class="link border-top">
-                                                <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
-                                                    <div class="m-l-10">
-                                                        <h5 class="m-b-0">Luanch Admin</h5> 
-                                                        <span class="mail-desc">Just see the my new admin!</span> 
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- End Messages -->
-                        <!-- ============================================================== -->
-
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
-                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-                                <div class="dropdown-divider"></div>
-                                <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a></div>
-                            </div>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                    </ul>
-                </div>
+                
             </nav>
         </header>
         <!-- ============================================================== -->
@@ -236,59 +220,48 @@ header("Pragma: no-cache");
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Trang chủ</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="charts.html" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Biểu đồ thống kê</span></a></li>
+
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php?act=list_sanpham" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Sản phẩm</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Danh mục</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="thuonghieu.html" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Thương hiệu</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php?act=danhmuc" aria-expanded="false"><i class="mdi mdi-border-inside"></i><span class="hide-menu">Danh mục</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php?act=list_th" aria-expanded="false"><i class="mdi mdi-blur-linear"></i><span class="hide-menu">Thương hiệu</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Màu, kích thước, thanh toán </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="mau.html" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Màu </span></a></li>
-                                <li class="sidebar-item"><a href="size.html" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Size </span></a></li>
-                                <li class="sidebar-item"><a href="thanhtoan.html" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Phương thức </span></a></li>
+                                <li class="sidebar-item"><a href="index.php?act=mau" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Màu </span></a></li>
+                                <li class="sidebar-item"><a href="index.php?act=size" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Size </span></a></li>
+                                <li class="sidebar-item"><a href="index.php?act=pttt" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Phương thức thanh toán </span></a></li>
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php?act=list_hoadon" aria-expanded="false"><i class="mdi mdi-relative-scale"></i><span class="hide-menu">Hóa đơn</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Người dùng </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="icon-material.html" class="sidebar-link"><i class="mdi mdi-emoticon"></i><span class="hide-menu"> Quản lý bình luận </span></a></li>
-                                <li class="sidebar-item"><a href="icon-fontawesome.html" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Font Awesome Icons </span></a></li>
+                                <li class="sidebar-item"><a href="index.php?act=binhluan" class="sidebar-link"><i class="mdi mdi-emoticon"></i><span class="hide-menu"> Quản lý bình luận </span></a></li>
+                                <li class="sidebar-item"><a href="index.php?act=dskh" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Quản lý người dùng </span></a></li>
+                                <li class="sidebar-item"><a href="index.php?act=list_ban_acc" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Tài khoản bị khóa</span></a></li>
+                                <li class="sidebar-item"><a href="index.php?act=list_report" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu">Bình luận bị báo cáo<output></output></span></a></li>
                             </ul>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pages-elements.html" aria-expanded="false"><i class="mdi mdi-pencil"></i><span class="hide-menu">Elements</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-move-resize-variant"></i><span class="hide-menu">Addons </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="index2.html" class="sidebar-link"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu"> Dashboard-2 </span></a></li>
-                                <li class="sidebar-item"><a href="pages-gallery.html" class="sidebar-link"><i class="mdi mdi-multiplication-box"></i><span class="hide-menu"> Gallery </span></a></li>
-                                <li class="sidebar-item"><a href="pages-calendar.html" class="sidebar-link"><i class="mdi mdi-calendar-check"></i><span class="hide-menu"> Calendar </span></a></li>
-                                <li class="sidebar-item"><a href="pages-invoice.html" class="sidebar-link"><i class="mdi mdi-bulletin-board"></i><span class="hide-menu"> Invoice </span></a></li>
-                                <li class="sidebar-item"><a href="pages-chat.html" class="sidebar-link"><i class="mdi mdi-message-outline"></i><span class="hide-menu"> Chat Option </span></a></li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-key"></i><span class="hide-menu">Authentication </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="authentication-login.html" class="sidebar-link"><i class="mdi mdi-all-inclusive"></i><span class="hide-menu"> Login </span></a></li>
-                                <li class="sidebar-item"><a href="authentication-register.html" class="sidebar-link"><i class="mdi mdi-all-inclusive"></i><span class="hide-menu"> Register </span></a></li>
-                            </ul>
-                        </li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-alert"></i><span class="hide-menu">Errors </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="error-403.html" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> Error 403 </span></a></li>
-                                <li class="sidebar-item"><a href="error-404.html" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> Error 404 </span></a></li>
-                                <li class="sidebar-item"><a href="error-405.html" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> Error 405 </span></a></li>
-                                <li class="sidebar-item"><a href="error-500.html" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> Error 500 </span></a></li>
-                            </ul>
-                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php?act=list_hide_sp" aria-expanded="false"><i class="bi bi-file-earmark-x-fill"></i></i><span class="hide-menu">Sản phẩm ẩn</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php?act=list_hide_dm" aria-expanded="false"><i class="bi bi-file-earmark-x-fill"></i></i><span class="hide-menu">Danh mục ẩn</span></a></li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php?act=list_hide_th" aria-expanded="false"><i class="bi bi-file-earmark-x-fill"></i></i><span class="hide-menu">Thương hiệu ẩn</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index.php?act=feedback" aria-expanded="false"><i class="bi bi-messenger"></i><span class="hide-menu">FeedBack</span></a></li>
+
+
+
+
+
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
         </aside>
+        <div id="toast">
+
+        </div>
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <!-- ============================================================== -->
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
-        
-        

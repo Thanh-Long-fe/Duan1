@@ -9,8 +9,8 @@
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                    <li class="breadcrumb-item"><a href="index.php">Trang chủ</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Sửa sản phẩm</li>
                                 </ol>
                             </nav>
                         </div>
@@ -32,12 +32,12 @@
                         <div class="card">
                             <form class="form-horizontal" action="index.php?act=update_sp" enctype="multipart/form-data" method="post">
                                 <div class="card-body">
-                                    <h4 class="card-title">Thêm sản phẩm</h4>
+                                    <h4 class="card-title">Sửa sản phẩm</h4>
                                     <div class="form-group row">
                                         <label for="name"
                                             class="col-sm-3 text-right control-label col-form-label">Tên sản phẩm</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="name"
+                                            <input rules="required" type="text" class="form-control" id="name"
                                                 placeholder="Tên sản phẩm " name="name" value="<?=$product['ten_san_pham']?>">
                                         </div>
                                     </div>
@@ -45,7 +45,7 @@
                                         <label for="Gia"
                                             class="col-sm-3 text-right control-label col-form-label">Giá</label>
                                         <div class="col-sm-9">
-                                            <input type="number" class="form-control" id="Gia" name="gia"
+                                            <input rules="required" type="number" class="form-control" id="Gia" name="gia"
                                                 placeholder="Giá " value="<?=$product['gia']?>">
                                         </div>
                                     </div>
@@ -53,7 +53,7 @@
                                         <label for="soluong"
                                             class="col-sm-3 text-right control-label col-form-label">Số lượng</label>
                                         <div class="col-sm-9">
-                                            <input type="number" class="form-control" id="soluong" name="soluong"
+                                            <input rules="required" type="number" class="form-control" id="soluong" name="soluong"
                                                 placeholder="Số lượng"  value="<?=$product['so_luong']?>">
                                         </div>
                                     </div>
@@ -62,13 +62,13 @@
                                         <label for="mota"
                                             class="col-sm-3 text-right control-label col-form-label">Mô tả</label>
                                         <div class="col-sm-9">
-                                            <textarea class="form-control" name="mota"><?=$product['mota']?></textarea>
+                                            <textarea rules="required" class="form-control" name="mota"><?=$product['mota']?></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3 text-right control-label col-form-label">Thương hiệu</label>
                                         <div class="col-md-9">
-                                            <select class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="thuonghieu">
+                                            <select rules="required" class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="thuonghieu">
                                                 <option value="">Chọn thương hiệu</option>
                                                 <?php foreach($thuonghieu as $th):?>
                                                     <option <?=$th['id_thuong_hieu'] == $product['id_thuong_hieu'] ? 'selected' : ''?> value="<?=$th['id_thuong_hieu']?>"><?=$th['ten_thuong_hieu']?></option>
@@ -80,7 +80,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 text-right control-label col-form-label">Danh mục</label>
                                         <div class="col-md-9">
-                                            <select class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="danhmuc">
+                                            <select rules="required" class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="danhmuc">
                                                 <option value="">Chọn danh mục</option>
                                                 <?php foreach($danhmuc as $dm):?>
                                                     <option <?=$dm['id_danh_muc'] == $product['id_danh_muc'] ? 'selected' : ''?> value="<?=$dm['id_danh_muc']?>"><?=$dm['ten_danh_muc']?></option>
@@ -92,22 +92,33 @@
                                         <label for="anh_sp"
                                             class="col-sm-3 text-right control-label col-form-label">Ảnh sản phẩm</label>
                                         <div class="col-sm-9">
-                                            <input type="file" class="form-control" id="anh_sp" name="anh_sp"
+                                            <input  type="file" class="form-control" id="anh_sp" name="anh_sp"
                                               >
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-3 text-right control-label col-form-label">Trạng thái</label>
+                                        <label class="col-sm-3 text-right control-label col-form-label">Sale</label>
                                         <div class="col-md-9">
-                                            <select class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="trangthai">
-                                                <?=$product['status'] == 0 ? '<option  value="1">Ẩn</option>
-                                                <option selected value="0" selected>Hiện</option>' : '<option selected value="1">Ẩn</option>
-                                                <option value="0" >Hiện</option>'?>
+                                            <select rules="required" class="select2 form-control m-t-15" style="height: 36px;width: 100%;" name="sale">
+                                              <?php for ($i=0; $i <= 90 ; $i+=10) { 
+                                               if ($i == $product['sale']) {
+                                                echo "<option selected value='$i'>$i%</option>";
+                                                
+                                               }
+                                               else{
+                                                echo "<option value='$i'>$i%</option>";
+                                               }
+                                               
+                                                 
+                                              }?>
                                                 
                                             </select>
+
+                                            <span class="form-message"></span>
                                         </div>
                                     </div>
-                                    <input type="hidden" value="<?=$product['id']?>" name="id">
+                             
+                                    <input rules="required" type="hidden" value="<?=$product['id']?>" name="id">
                                   
                                   
                                  
